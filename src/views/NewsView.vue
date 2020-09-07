@@ -1,41 +1,18 @@
 <template>
   <div>
-    <p v-for="news in this.newsList" :key="news.id">
-      <a :href="news.url">{{ news.title }}</a><br>
-      <small>{{ news.time_ago }} by 
-        <router-link :to="'/user/' + news.user">{{ news.user }}</router-link>
-      </small>
-    </p>
+    <list-item></list-item>
   </div>
 </template>
 
 <script>
-import { fetchNews } from '../api/index.js';
+import ListItem from '../components/ListItem.vue';
 
 export default {
-  data() {
-    return {
-      newsList: [],
-    }
+  components: {
+    ListItem
   },
   created() {
-    // News 데이터 조회.
-    this.getNewsList();
-  },
-  methods: {
-    getNewsList() {
-      return new Promise((resolve, reject) => {
-        fetchNews()
-          .then(response => {
-            this.newsList = response.data;
-            resolve();
-          })
-          .catch(error => {
-            reject(error);
-          });
-      });
-    }
-  },
+  }
 }
 </script>
 
